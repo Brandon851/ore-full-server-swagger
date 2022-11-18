@@ -11,9 +11,6 @@
     "swagger"
   ],
   "license": "Unlicense",
-	"engines": {
-    "node": "10.x"
-  },
   "private": true,
   "dependencies": {
     "connect": "^3.2.0",
