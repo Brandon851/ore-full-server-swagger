@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: API Elite ORE
+  description: Esta API se encarga de manejar las información de la base de datos
+    de la empresa Elite ORE.
+  version: 1.0.0
+servers:
+- url: https://us-central1-ore-dev-32608.cloudfunctions.net/app/api
+tags:
+- name: elite
+  description: Este endpoint maneja toda la información sobre los prospectos de la
+    plataforma Elite
+paths:
+  /elite/express:
+    post:
+      tags:
+      - elite
+      summary: Agrega un prospecto de elite express
+      description: Agregar un nuevo prospecto de elite tipo express a la base de datos
+      operationId: eliteExpressPOST
+      parameters:
+      - name: fullName
+        in: query
+        description: Nombre completo del prospecto express
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: phoneNumber
+        in: query
+        description: Número de del prospecto express
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: source
+        in: query
+        description: Fuente de donde se obtuvo la información del prospecto express
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - Página web ELITE
+          - Página web O'Farrill
+          - Javier Lemarroy
+          - Call picker Whatsapp
+          - Golden sub ELITE
+          - Goldern sub O'Farrill
+          - Personal
+          - Call picker llamada
+          - Otros
+          default: Página web ELITE
+      - name: clientType
+        in: query
+        description: Tipo de cliente del prospecto express
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - Directo
+          - Agente externo
+          default: Directo
+      - name: operationType
+        in: query
+        description: Tipo de operación del prospecto express
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - Renta
+          - Venta
+          default: Renta
+      - name: propertyType
+        in: query
+        description: Tipo de propiedad del prospecto express
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - Casa
+          - Lote Industrial
+          - Nave
+          - Departamento
+          - Local Comercial
+          - Oficinas
+          - Terreno
+          default: Casa
+      - name: location
+        in: query
+        description: Ubicación de quién dio de alta el prospecto express
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - Guadalajara
+          - Monterrey
+          default: Guadalajara
+      requestBody:
+        description: Crear un nuevo prospecto express a la base de datos
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EliteBody'
+        required: true
+      responses:
+        "200":
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EliteExpressPostResponseSuccess'
+        "404":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EliteExpressPostResponseError'
+      x-swagger-router-controller: Elite
+components:
+  schemas:
+    EliteBody:
+      required:
+      - fullName
+      - phoneNumber
+      - source
+      type: object
+      properties:
+        fullName:
+          type: string
+          example: Brandon Fuentes
+        phoneNumber:
+          type: string
+          example: "7341408998"
+        source:
+          type: string
+          example: Página web ELITE
+        clientType:
+          type: string
+          example: Directo
+        operationType:
+          type: string
+          example: Renta
+        propertyType:
+          type: string
+          example: Casa
+        location:
+          type: string
+          example: Guadalajara
+    EliteExpressPostResponseSuccess:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Prospect Elite Express sucessfully created
+      example:
+        message: Prospect Elite Express sucessfully created
+    EliteExpressPostResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Bad request

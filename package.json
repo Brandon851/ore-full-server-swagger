@@ -1,0 +1,23 @@
+{
+  "name": "api-elite-ore",
+  "version": "1.0.0",
+  "description": "Esta API se encarga de manejar las información de la base de datos de la empresa Elite ORE.",
+  "main": "index.js",
+  "scripts": {
+	"prestart": "npm install",
+	"start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+	"engines": {
+    "node": "10.x"
+  },
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "oas3-tools": "^2.2.3"
+  }
+}
